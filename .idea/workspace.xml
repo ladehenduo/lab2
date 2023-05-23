@@ -4,12 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="6985a08a-5df9-400e-9642-1de0545cb6ae" name="Changes" comment="gitignore test">
-      <change afterPath="$PROJECT_DIR$/src/task1/Demo.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/task1/Father.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/task1/Son.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/task1/defException.java" afterDir="false" />
+    <list default="true" id="6985a08a-5df9-400e-9642-1de0545cb6ae" name="Changes" comment="task1完成：&#10;1.父亲类的定义&#10;2.父亲类某些方法抛出异常&#10;task1待完成：&#10;1.儿子类的定义&#10;2.反射出所有方法和属性&#10;3.利用反射机制创建对象&#10;task2未开始&#10;task3未开始">
+      <change afterPath="$PROJECT_DIR$/src/task2/Demo.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/task1/Demo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/task1/Demo.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/task1/Son.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/task1/Son.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -24,7 +23,11 @@
     </option>
   </component>
   <component name="Git.Settings">
+    <option name="PUSH_AUTO_UPDATE" value="true" />
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="HighlightingSettingsPerFile">
+    <setting file="jar://C:/Environment/Java/jdk-18.0.2.1/lib/src.zip!/java.base/java/lang/reflect/Method.java" root0="FORCE_HIGHLIGHTING" />
   </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
@@ -37,20 +40,20 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "WebServerToolWindowFactoryState": "false",
-    "last_opened_file_path": "E:/JavaEE/test1",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;last_opened_file_path&quot;: &quot;E:/JavaEE/test1&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
@@ -60,7 +63,10 @@
       <option name="presentableId" value="Default" />
       <updated>1681783988196</updated>
       <workItem from="1681783988422" duration="1335000" />
-      <workItem from="1681785398686" duration="2410000" />
+      <workItem from="1681785398686" duration="2918000" />
+      <workItem from="1683591297809" duration="491000" />
+      <workItem from="1684203248833" duration="3551000" />
+      <workItem from="1684807207104" duration="7667000" />
     </task>
     <task id="LOCAL-00001" summary="gitignore test">
       <created>1681784987578</created>
@@ -69,7 +75,14 @@
       <option name="project" value="LOCAL" />
       <updated>1681784987578</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="task1完成：&#10;1.父亲类的定义&#10;2.父亲类某些方法抛出异常&#10;task1待完成：&#10;1.儿子类的定义&#10;2.反射出所有方法和属性&#10;3.利用反射机制创建对象&#10;task2未开始&#10;task3未开始">
+      <created>1681788411968</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1681788411968</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -88,6 +101,7 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="gitignore test" />
-    <option name="LAST_COMMIT_MESSAGE" value="gitignore test" />
+    <MESSAGE value="task1完成：&#10;1.父亲类的定义&#10;2.父亲类某些方法抛出异常&#10;task1待完成：&#10;1.儿子类的定义&#10;2.反射出所有方法和属性&#10;3.利用反射机制创建对象&#10;task2未开始&#10;task3未开始" />
+    <option name="LAST_COMMIT_MESSAGE" value="task1完成：&#10;1.父亲类的定义&#10;2.父亲类某些方法抛出异常&#10;task1待完成：&#10;1.儿子类的定义&#10;2.反射出所有方法和属性&#10;3.利用反射机制创建对象&#10;task2未开始&#10;task3未开始" />
   </component>
 </project>
