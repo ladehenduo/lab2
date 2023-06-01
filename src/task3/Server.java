@@ -15,65 +15,68 @@ public class Server {
     private static ObjectOutputStream outfile;
     private static ObjectInputStream infile;
     public static List<ChatMessage> listLast;
-    public static Date date = new Date();
+    public static Object date = new Object();
+    public static Socket socket;
 
     public static void sendMessage(String ms) {
-        synchronized (date) {
-            ChatMessage message = new ChatMessage(ms, System.currentTimeMillis(), true);
-            try {
-                oos.writeObject(message);
-            } catch (IOException e) {
-                System.out.println("发送失败：" + e.getMessage());
-            }
+        ChatMessage message = new ChatMessage(ms, System.currentTimeMillis(), true);
+        try {
+            listLast.add(message);
+            oos.writeObject(message);
+        } catch (IOException e) {
+            System.out.println("发送失败：" + e.getMessage());
         }
     }
     public static void sendMessage(ChatMessage ms) {
-        synchronized (date) {
-            try {
-                oos.writeObject(ms);
-            } catch (IOException e) {
-                System.out.println("发送失败：" + e.getMessage());
-            }
+        try {
+            listLast.add(ms);
+            oos.writeObject(ms);
+        } catch (IOException e) {
+            System.out.println("发送失败：" + e.getMessage());
         }
     }
     public static void receiveMessage() {
-        synchronized (date) {
-            try {
-                ChatMessage message = (ChatMessage) ois.readObject();
-                if(message.getMessage().equals("历史消息")) {
-                    for(int i = 0; i < listLast.size(); i++) {
-                        sendMessage(listLast.get(i));
-                    }
-                    sendMessage("over");
+        try {
+            ChatMessage message = (ChatMessage) ois.readObject();
+            if(message.getMessage().equals("历史消息")) {
+                for(int i = 0; i < listLast.size(); i++) {
+                    sendMessage(listLast.get(i));
                 }
-                else {
-                    System.out.println("时间：" + new Date(message.getDate()).toString() + "客户端：" + message.getMessage());
-                    listLast.add(message);
-                    outfile.writeObject(message);
-                }
-            } catch (IOException e) {
-                System.out.println("接收消息失败：" + e.getMessage());
-            } catch (ClassNotFoundException e) {
-                System.out.println("接收消息失败：" + e.getMessage());
+                sendMessage("over");
             }
+            else if(message.getMessage().equals("bye")) {
+                outfile.flush();
+                socket.shutdownOutput();
+                socket.shutdownInput();
+                socket.close();
+            }
+            else {
+                System.out.println("时间：" + new Date(message.getDate()).toString() + "客户端：" + message.getMessage());
+                listLast.add(message);
+                outfile.writeObject(message);
+            }
+        } catch (IOException e) {
+            System.out.println("接收消息失败：" + e.getMessage());
+        } catch (ClassNotFoundException e) {
+            System.out.println("接收消息失败：" + e.getMessage());
         }
     }
 
     public static void main(String[] args) throws IOException{
-        InetAddress address = InetAddress.getByName("192.168.88.241");
+        InetAddress address = InetAddress.getByName("192.168.31.51");  //
         SocketAddress address1 = new InetSocketAddress(address, 9988);
         ServerSocket serverSocket = new ServerSocket();
         serverSocket.bind(address1);
         System.out.println("服务器已启动，正在等待连接...");
-        Socket socket = serverSocket.accept();
+        socket = serverSocket.accept();
         System.out.println("服务器已被" + socket.getInetAddress().getHostAddress() + "连接！");
-
-        File file = new File("E:\\JavaEE\\lab2\\src\\task3\\data.txt");
-        file.createNewFile();
-        outfile = new ObjectOutputStream(new BufferedOutputStream(new FileOutputStream(file, true)));
+        File file = new File("E:\\IDEA_Java\\lab2\\src\\task3\\data.txt");  // desktop
+//        File file = new File("E:\\JavaEE\\lab2\\src\\task3\\data.txt");  // laptop
+//        file.createNewFile();
+        listLast = new ArrayList<>();
+        outfile = new ObjectOutputStream(new BufferedOutputStream(new FileOutputStream(file, false)));
         try {
             infile = new ObjectInputStream(new FileInputStream(file));
-            listLast = new ArrayList<>();
             do {
                 try {
                     ChatMessage message = (ChatMessage) infile.readObject();
@@ -99,6 +102,15 @@ public class Server {
                 while(true) {
                     tp = scanner.next();
                     if(tp.equals("bye")) {
+                        try {
+                            outfile.flush();
+                            sendMessage("bye");
+                            socket.shutdownInput();
+                            socket.shutdownOutput();
+                            socket.close();
+                        } catch (IOException e) {
+                            System.out.println(e.getMessage());
+                        }
                         break;
                     }
                     else if(tp.equals("历史记录")) {
@@ -125,7 +137,17 @@ public class Server {
             @Override
             public void run() {
                 while (true) {
-                    receiveMessage();
+                    if(socket.isClosed()) {
+                        try {
+                            outfile.flush();
+                        } catch (IOException e) {
+                            System.out.println(e.getMessage());
+                        }
+                        break;
+                    }
+                    else {
+                        receiveMessage();
+                    }
                 }
             }
         });

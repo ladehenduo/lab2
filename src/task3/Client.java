@@ -11,48 +11,48 @@ public class Client {
     private static OutputStream out;
     private static ObjectInputStream ois;
     private static ObjectOutputStream oos;
+    public static Socket socket;
 
     public static Date date = new Date();
     static void sendMessage(String ms) {
-        synchronized (date) {
-            ChatMessage message = new ChatMessage(ms, System.currentTimeMillis(), false);
-            try {
-                oos.writeObject(message);
-            } catch (IOException e) {
-                System.out.println("发送失败：" + e.getMessage());
-            }
+        ChatMessage message = new ChatMessage(ms, System.currentTimeMillis(), false);
+        try {
+            oos.writeObject(message);
+        } catch (IOException e) {
+            System.out.println("发送失败：" + e.getMessage());
         }
     }
     static void receiveMessage() {
-        synchronized (date) {
-            try {
-                if(ois.available() > 0) {
-                    ChatMessage message = (ChatMessage) ois.readObject();
-                    if(message.getMessage().equals("历史记录")) {
-                        System.out.println("---------------------以下为历史消息-----------------------");
-                        do {
-                            message = (ChatMessage) ois.readObject();
-                            if(message.isServerMessage) {
-                                System.out.println("时间：" + new Date(message.getDate()).toString() + " 服务器：" + message.getMessage());
-                            }
-                            else {
-                                System.out.println("时间：" + new Date(message.getDate()).toString() + "客户端：" + message.getMessage());
-                            }
-                        } while(!message.getMessage().equals("over"));
-                    }
-                    else {
+        try {
+            ChatMessage message = (ChatMessage) ois.readObject();
+            if(message.getMessage().equals("历史记录")) {
+                System.out.println("---------------------以下为历史消息-----------------------");
+                do {
+                    message = (ChatMessage) ois.readObject();
+                    if(message.isServerMessage) {
                         System.out.println("时间：" + new Date(message.getDate()).toString() + " 服务器：" + message.getMessage());
                     }
-                }
-            } catch (IOException e) {
-                System.out.println("接受失败：" + e.getMessage());
-            } catch (ClassNotFoundException e) {
-                System.out.println("接受失败：" + e.getMessage());
+                    else {
+                        System.out.println("时间：" + new Date(message.getDate()).toString() + "客户端：" + message.getMessage());
+                    }
+                } while(!message.getMessage().equals("over"));
             }
+            else if (message.getMessage().equals("bye")) {
+                socket.shutdownOutput();
+                socket.shutdownInput();
+                socket.close();
+            }
+            else {
+                System.out.println("时间：" + new Date(message.getDate()).toString() + " 服务器：" + message.getMessage());
+            }
+        } catch (IOException e) {
+            System.out.println("接受失败：" + e.getMessage());
+        } catch (ClassNotFoundException e) {
+            System.out.println("接受失败：" + e.getMessage());
         }
     }
     public static void main(String[] args) throws Exception {
-        Socket socket = new Socket("192.168.88.241", 9988);
+        socket = new Socket("192.168.31.51", 9988);
         if(socket.isConnected()) {
             System.out.println("连接服务器成功！");
             System.out.println("远程主机地址为：" + socket.getRemoteSocketAddress().toString());
@@ -76,8 +76,9 @@ public class Client {
                         String tp;
                         tp = scanner.next();
                         if(tp.equals("bye")) {
-                            ois.close();
-                            oos.close();
+                            sendMessage("bye");
+                            socket.shutdownOutput();
+                            socket.shutdownInput();
                             socket.close();
                             break;
                         }
@@ -94,7 +95,12 @@ public class Client {
             @Override
             public void run() {
                 while(true) {
-                    receiveMessage();
+                    if(socket.isClosed()) {
+                        break;
+                    }
+                    else {
+                        receiveMessage();
+                    }
                 }
             }
         });
