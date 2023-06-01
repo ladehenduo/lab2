@@ -5,7 +5,6 @@ import java.io.Serializable;
 public class ChatMessage implements Serializable {
     private String message;
     private long date;
-
     public boolean isServerMessage;
     public ChatMessage(String message, long date, boolean isServerMessage) {
         this.message = message;

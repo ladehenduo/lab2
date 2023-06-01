@@ -2,117 +2,130 @@ package task3;
 
 import java.io.*;
 import java.net.*;
+import java.text.DateFormat;
+import java.text.FieldPosition;
+import java.text.ParsePosition;
 import java.util.*;
 
 public class Server {
-    public static void main(String[] args) throws IOException, ClassNotFoundException {
-        SocketAddress address1 = new InetSocketAddress(9988);
+    private static InputStream in;
+    private static OutputStream out;
+    private static ObjectInputStream ois;
+    private static ObjectOutputStream oos;
+    private static ObjectOutputStream outfile;
+    private static ObjectInputStream infile;
+    public static List<ChatMessage> listLast;
+    public static Date date = new Date();
+
+    public static void sendMessage(String ms) {
+        synchronized (date) {
+            ChatMessage message = new ChatMessage(ms, System.currentTimeMillis(), true);
+            try {
+                oos.writeObject(message);
+            } catch (IOException e) {
+                System.out.println("发送失败：" + e.getMessage());
+            }
+        }
+    }
+    public static void sendMessage(ChatMessage ms) {
+        synchronized (date) {
+            try {
+                oos.writeObject(ms);
+            } catch (IOException e) {
+                System.out.println("发送失败：" + e.getMessage());
+            }
+        }
+    }
+    public static void receiveMessage() {
+        synchronized (date) {
+            try {
+                ChatMessage message = (ChatMessage) ois.readObject();
+                if(message.getMessage().equals("历史消息")) {
+                    for(int i = 0; i < listLast.size(); i++) {
+                        sendMessage(listLast.get(i));
+                    }
+                    sendMessage("over");
+                }
+                else {
+                    System.out.println("时间：" + new Date(message.getDate()).toString() + "客户端：" + message.getMessage());
+                    listLast.add(message);
+                    outfile.writeObject(message);
+                }
+            } catch (IOException e) {
+                System.out.println("接收消息失败：" + e.getMessage());
+            } catch (ClassNotFoundException e) {
+                System.out.println("接收消息失败：" + e.getMessage());
+            }
+        }
+    }
+
+    public static void main(String[] args) throws IOException{
+        InetAddress address = InetAddress.getByName("192.168.88.241");
+        SocketAddress address1 = new InetSocketAddress(address, 9988);
         ServerSocket serverSocket = new ServerSocket();
         serverSocket.bind(address1);
         System.out.println("服务器已启动，正在等待连接...");
         Socket socket = serverSocket.accept();
-        System.out.println("服务器已被" + socket.getRemoteSocketAddress().toString() + "连接！");
-//            File file = new File("E:\\JavaEE\\lab2\\src\\task3\\data.txt");
-        File file = new File("E:\\IDEA_Java\\lab2\\src\\task3\\data.txt");
+        System.out.println("服务器已被" + socket.getInetAddress().getHostAddress() + "连接！");
+
+        File file = new File("E:\\JavaEE\\lab2\\src\\task3\\data.txt");
         file.createNewFile();
-        //获得输入输出流，并创建对象流，文件流
-        ObjectOutputStream oos = new ObjectOutputStream(socket.getOutputStream());
-        ObjectInputStream ois = new ObjectInputStream(socket.getInputStream());      // 将对象序列化传输通讯
-
-
-        FileInputStream fileInputStream = new FileInputStream(file);    // 将消息对象持久化，实现历史记录功能
-        FileOutputStream fileOutputStream = new FileOutputStream(file);
-        ObjectOutputStream oosf = new ObjectOutputStream(fileOutputStream);
-        ObjectInputStream oisf = new ObjectInputStream(fileInputStream);
-
-        List<ChatMessage> lastMs = new ArrayList<>(); // 历史记录
-//        if(file.length() != 0) {
-//            while(true) {
-//                ChatMessage m = (ChatMessage) oisf.readObject();
-//                if(m != null) {
-//                    lastMs.add(m);
-//                }
-//                else {
-//                    break;
-//                }
-//            }
-//            oisf.close();
-//        }
-        List<ChatMessage> currMs = new ArrayList<>(); // 本次聊天记录
-        Scanner scanner = new Scanner(System.in);
-
-        Thread receiveThread = new Thread(new Runnable() {
-            @Override
-            public void run() {
+        outfile = new ObjectOutputStream(new BufferedOutputStream(new FileOutputStream(file, true)));
+        try {
+            infile = new ObjectInputStream(new FileInputStream(file));
+            listLast = new ArrayList<>();
+            do {
                 try {
-                    while(true) {
-                        ChatMessage message = (ChatMessage) ois.readObject();
-                        if(message == null) {
-                            System.out.println("无事发生...");
-                            Thread.sleep(10);
-                        }
-                        else {
-                            message.isServerMessage = false;
-                            System.out.println("客户端：" + message.getMessage() + " " + new Date(message.getDate()).toString());
-                            currMs.add(message);
-                        }
-                    }
-                }catch (IOException e) {
-                    e.printStackTrace();
-                }catch (ClassNotFoundException e) {
-                    e.printStackTrace();
-                } catch (InterruptedException e) {
-                    throw new RuntimeException(e);
+                    ChatMessage message = (ChatMessage) infile.readObject();
+                    if(message == null) break;
+                } catch (ClassNotFoundException e) {
+                    System.out.println("读取历史消息失败：" + e.getMessage());
                 }
-
-            }
-        });
+            }while (true);
+        }catch (EOFException e) {
+            System.out.println("无历史记录");
+        }
+        //获得输入输出流，并创建对象流，文件流
+        out = socket.getOutputStream();
+        in = socket.getInputStream();
+        ois = new ObjectInputStream(in);
+        oos = new ObjectOutputStream(out);
+        Scanner scanner = new Scanner(System.in);
 
         Thread sendThread = new Thread(new Runnable() {
             @Override
             public void run() {
-                try {
-                    while (true) {
-                        System.out.println("Sever send send send");
-                        String tp;
-                        long time;
-                        tp = scanner.next();
-                        time = System.currentTimeMillis();
-                        if (tp.equals("bye")) { // 如果输入bye则关闭连接
-                            for (ChatMessage m : currMs) {
-                                oosf.writeObject(m);
-                            }
-                            ois.close();
-                            oos.close();
-                            oosf.close();
-                            socket.close();
-                            break;
-                        } else if (tp.equals("历史消息")) {
-                            for (ChatMessage m : lastMs) {
-                                Date date = new Date(m.getDate());
-                                if (m.isServerMessage) {
-                                    System.out.println("服务器：" + m.getMessage() + " " + date.toString());
-                                } else {
-                                    System.out.println("客户端：" + m.getMessage() + " " + date.toString());
+                String tp;
+                while(true) {
+                    tp = scanner.next();
+                    if(tp.equals("bye")) {
+                        break;
+                    }
+                    else if(tp.equals("历史记录")) {
+                        synchronized (date) {
+                            System.out.println("---------------------以下为历史消息-----------------------");
+                            for(int i = 0; i < listLast.size(); i++) {
+                                ChatMessage message = listLast.get(i);
+                                if(message.isServerMessage) {
+                                    System.out.println("时间：" + new Date(message.getDate()).toString() + " 服务器：" + message.getMessage());
+                                }
+                                else {
+                                    System.out.println("时间：" + new Date(message.getDate()).toString() + "客户端：" + message.getMessage());
                                 }
                             }
-                            for (ChatMessage m : currMs) {
-                                Date date = new Date(m.getDate());
-                                if (m.isServerMessage) {
-                                    System.out.println("服务器：" + m.getMessage() + " " + date.toString());
-                                } else {
-                                    System.out.println("客户端：" + m.getMessage() + " " + date.toString());
-                                }
-                            }
-                        } else {
-                            ChatMessage message = new ChatMessage(tp, time, true);
-                            oos.writeObject(message);
-                            currMs.add(message);
                         }
                     }
+                    else {
+                        sendMessage(tp);
+                    }
                 }
-                catch (IOException e) {
-                    System.out.println(e.getMessage());
+            }
+        });
+        Thread receiveThread = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                while (true) {
+                    receiveMessage();
                 }
             }
         });

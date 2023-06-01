@@ -14,7 +14,7 @@ public class Demo {
         Field[] dcfield = null;
         try {
             fClass = Class.forName("task1.Father");
-            cClass = Class.forName("task1.Son");
+            cClass = Son.class;
         } catch (ClassNotFoundException e) {
             throw new RuntimeException(e);
         }

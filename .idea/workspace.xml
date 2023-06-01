@@ -4,13 +4,15 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="6985a08a-5df9-400e-9642-1de0545cb6ae" name="Changes" comment="gitignore test">
-      <change afterPath="$PROJECT_DIR$/src/task3/data.txt" afterDir="false" />
+    <list default="true" id="6985a08a-5df9-400e-9642-1de0545cb6ae" name="Changes" comment="task1完成&#10;task2完成&#10;task3界面逻辑未完成">
       <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/task1/Demo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/task1/Demo.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/task2/Demo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/task2/Demo.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/task3/ChatMessage.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/task3/ChatMessage.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/task3/Client.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/task3/Client.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/task3/Message.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/task3/ChatMessage.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/task3/Server.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/task3/Server.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/task3/data.txt" beforeDir="false" afterPath="$PROJECT_DIR$/src/task3/data.txt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -25,7 +27,11 @@
     </option>
   </component>
   <component name="Git.Settings">
+    <option name="PUSH_AUTO_UPDATE" value="true" />
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="HighlightingSettingsPerFile">
+    <setting file="jar://C:/Environment/Java/jdk-18.0.2.1/lib/src.zip!/java.base/java/lang/reflect/Method.java" root0="FORCE_HIGHLIGHTING" />
   </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
@@ -40,11 +46,10 @@
   </component>
   <component name="PropertiesComponent">{
   &quot;keyToString&quot;: {
-    &quot;ASKED_ADD_EXTERNAL_FILES&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
     &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
-    &quot;last_opened_file_path&quot;: &quot;D:/IDEA_Java/lab2&quot;,
+    &quot;last_opened_file_path&quot;: &quot;E:/JavaEE/test1&quot;,
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
     &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
     &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
@@ -53,121 +58,6 @@
     &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
 }</component>
-  <component name="RunManager" selected="Application.Client">
-    <configuration name="Client (1)" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="task3.Client" />
-      <module name="lab2" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="task3.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="Client (2)" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="task3.Client" />
-      <module name="lab2" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="task3.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="Client" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="task3.Client" />
-      <module name="lab2" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="task3.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="Client" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="task3.Client" />
-      <module name="lab2" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="task3.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="Server (2)" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="task3.Server" />
-      <module name="lab2" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="task3.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="Server (3)" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="task3.Server" />
-      <module name="lab2" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="task3.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="Server" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="task3.Server" />
-      <module name="lab2" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="task3.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="Server" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="task3.Server" />
-      <module name="lab2" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="task3.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <recent_temporary>
-      <list>
-        <item itemvalue="Application.Client" />
-        <item itemvalue="Application.Server (2)" />
-        <item itemvalue="Application.Client (2)" />
-        <item itemvalue="Application.Server (3)" />
-        <item itemvalue="Application.Client (1)" />
-      </list>
-    </recent_temporary>
-  </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
@@ -177,9 +67,13 @@
       <option name="presentableId" value="Default" />
       <updated>1681783988196</updated>
       <workItem from="1681783988422" duration="1335000" />
-      <workItem from="1681785398686" duration="2410000" />
-      <workItem from="1681820598223" duration="69000" />
-      <workItem from="1681825404262" duration="4055000" />
+      <workItem from="1681785398686" duration="2918000" />
+      <workItem from="1683591297809" duration="491000" />
+      <workItem from="1684203248833" duration="3551000" />
+      <workItem from="1684807207104" duration="14329000" />
+      <workItem from="1685413508537" duration="836000" />
+      <workItem from="1685600267696" duration="8190000" />
+      <workItem from="1685609389935" duration="5230000" />
     </task>
     <task id="LOCAL-00001" summary="gitignore test">
       <created>1681784987578</created>
@@ -188,7 +82,21 @@
       <option name="project" value="LOCAL" />
       <updated>1681784987578</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="task1完成：&#10;1.父亲类的定义&#10;2.父亲类某些方法抛出异常&#10;task1待完成：&#10;1.儿子类的定义&#10;2.反射出所有方法和属性&#10;3.利用反射机制创建对象&#10;task2未开始&#10;task3未开始">
+      <created>1681788411968</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1681788411968</updated>
+    </task>
+    <task id="LOCAL-00003" summary="task1完成&#10;task2完成&#10;task3还没开始">
+      <created>1684828783887</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1684828783887</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -206,8 +114,9 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
     <MESSAGE value="gitignore test" />
-    <option name="LAST_COMMIT_MESSAGE" value="gitignore test" />
+    <MESSAGE value="task1完成：&#10;1.父亲类的定义&#10;2.父亲类某些方法抛出异常&#10;task1待完成：&#10;1.儿子类的定义&#10;2.反射出所有方法和属性&#10;3.利用反射机制创建对象&#10;task2未开始&#10;task3未开始" />
+    <MESSAGE value="task1完成&#10;task2完成&#10;task3还没开始" />
+    <option name="LAST_COMMIT_MESSAGE" value="task1完成&#10;task2完成&#10;task3还没开始" />
   </component>
 </project>
